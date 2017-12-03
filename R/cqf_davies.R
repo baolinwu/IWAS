@@ -3,6 +3,7 @@
 #' Imported from CompQuadForm R package (version 1.4.3; 10/4/2017). Slight simplifications for sum of central chi-squares.
 #' @param qx quantile to compute tail prob
 #' @param lambda weights for 1-DF chi-square rvs
+#' @param delta non-centrality parameters for 1-DF chi-square rvs. Default to zeros.
 #' @param lim total number of integration terms
 #' @param acc accuracy for computed probability
 #' 

@@ -11,6 +11,8 @@ Wdavies(qx, lambda, delta = NULL, lim = 1e+09, acc = 1e-06)
 
 \item{lambda}{weights for 1-DF chi-square rvs}
 
+\item{delta}{non-centrality parameters for 1-DF chi-square rvs. Default to zeros.}
+
 \item{lim}{total number of integration terms}
 
 \item{acc}{accuracy for computed probability}
