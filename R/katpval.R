@@ -11,7 +11,7 @@
 #' Wu,B., Guan,W., Pankow,J.S. (2016) On efficient and accurate calculation of significance p-values for sequence kernel association test of variant set. \emph{Annals of human genetics}, 80(2), 123-135.
 #'
 #' Wu,B., Guo,B. and Liu,N. (2017) A powerful and efficient statistical method for transcriptome-wide association test using GWAS summary data. tech rep.
-KATpval <- function(Q.all, lambda, acc=1e-3,lim=1e9){
+KATpval <- function(Q.all, lambda, acc=1e-2,lim=1e7){
   ## pval = rep(0, length(Q.all))
   pval = Liu.pval(Q.all,lambda)
   i1 = which(is.finite(Q.all))
