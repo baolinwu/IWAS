@@ -1,14 +1,14 @@
-#' Adaptive transcript mediated genome-wide association test using GWAS summary data
+#' Transcriptome informed adaptive variant-set association test using GWAS summary data
 #'
 #' Take input of summary Z-statistics, variant LD matrix, transcript derived variant weight.
 #' 
 #' @param  Z summary Z-statistics for a set of variants
 #' @param  R the estimated variant LD matrix
 #' @param  W variant weight derived from outside reference panel of transcript and SNP data
-#' @param  rho sequence of weights assigned to the S-PrediXcan (summary statistics based PrediXcan) test 
+#' @param  rho sequence of weights assigned to the MetaXcan (summary statistics based PrediXcan) test 
 #' @return
 #' \describe{
-#'   \item{p.value}{ p-values for: PXA (adaptive test); PXV (VC test); PXU (S-PrediXcan) }
+#'   \item{p.value}{ p-values for: AT (adaptive test); QT (quadratic test); MT (MetaXcan based test) }
 #'   \item{pvals}{ vector of p-values for all weighted tests }
 #'   \item{rho.est}{ estimated optimal \eqn{\rho} value }
 #' }
@@ -20,16 +20,17 @@
 #' 
 #' Wu,B., Guan,W., Pankow,J.S. (2016) On efficient and accurate calculation of significance p-values for sequence kernel association test of variant set. Annals of human genetics, 80(2), 123-135.
 #'
-#' Wu,B., Guo,B. and Liu,N. (2017) A powerful and efficient statistical method for transcriptome-wide association test using GWAS summary data. tech rep.
+#' Wu,B., Guo,B. and Liu,N. (2018) A powerful and efficient statistical method for transcriptome-wide association test using GWAS summary data. \emph{Bioinformatics}, under revision.
 #' @examples
 #' library(IWAS)
 #' ## pairwise cor = 0.2
-#' R = cor(matrix(rnorm(2e3),100,20)*sqrt(0.8)+rnorm(100)*sqrt(0.2))
-#' Z = rnorm(20)*sqrt(0.8)+rnorm(1)*sqrt(0.2); W = rnorm(20)
-#' TWAS2(Z,R,W)
+#' m = 20
+#' R = cor(matrix(rnorm(100*m),100,m)*sqrt(0.8)+rnorm(100)*sqrt(0.2))
+#' Z = rnorm(m)*sqrt(0.8)+rnorm(1)*sqrt(0.2); W = rnorm(m)
+#' TSATS(Z,R,W)
 #' Z[1:2] = Z[1:2] + 1*W[1:2]
-#' TWAS2(Z,R,W)
-TWAS2 <- function(Z,R,W, rho=c((0:5/10)^2,0.5,1)){
+#' TSATS(Z,R,W)
+TSATS <- function(Z,R,W, rho=c((0:5/10)^2,0.5,1)){
   M = length(Z)
   ##
   Zw = Z*W; Rw = t(R*W)*W
@@ -37,13 +38,13 @@ TWAS2 <- function(Z,R,W, rho=c((0:5/10)^2,0.5,1)){
   R1 = sum(eta^2); R2 = sum(eta^2*lamR)
   c2 = outer(eta,eta)
   Lamq = eigen(diag(lamR) - R2/R1^2*c2, symmetric=TRUE,only.values=TRUE)$val
-  ## PXU  (S-PrediXcan)
+  ## MT: PXU  (S-PrediXcan)
   Qb = sum(Zw)^2
   pvalb = pchisq(Qb/R1, 1,lower=FALSE)
-  ## PXV 
+  ## QT: PXV 
   Qv = sum(Zw^2)
   pvalv = KATpval(Qv,lamR)
-  ## PXA
+  ## AT: PXA
   L = length(rho)
   L1 = L-1; rho1 = rho[-L]
   Qw = (1-rho)*Qv + rho*Qb
@@ -77,6 +78,8 @@ TWAS2 <- function(Z,R,W, rho=c((0:5/10)^2,0.5,1)){
     p.value = try({ minP + integrate(katint, 0,q1, abs.tol=minP*prec)$val }, silent=TRUE)
     prec = prec*2
   }
-  return(list(p.value=c(A=p.value, V=pvalv, U=pvalb), pval=pval, rho.est=rho[which.min(pval)]) )
+  p.value = c(A=p.value, V=pvalv, U=pvalb)
+  names(p.value) = c('AT', 'QT', 'MT')
+  return(list(p.value=p.value, pval=pval, rho.est=rho[which.min(pval)]) )
 }
 

@@ -1,5 +1,5 @@
 Package: IWAS
-Title: Integative modeling using GWAS data
+Title: Integrating additional information for association test in GWAS
 Version: 0.1.0
 Description: This package implements various integrative modeling methods that
        incorporate additional information for improved genome-wide association test.
@@ -7,6 +7,7 @@ Depends:
     R (>= 3.0.0)
 License: GPL (>= 2)
 LazyData: true
+Encoding: UTF-8
 Author: Baolin Wu [aut, cre]
 Maintainer: Baolin Wu <baolin@umn.edu>
-RoxygenNote: 6.0.1
+RoxygenNote: 6.1.0
