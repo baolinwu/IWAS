@@ -1,16 +1,16 @@
-#' Compute the tail probability of weighted sum of 1-DF chi-square rvs
-#'
-#' Use Davies' method and apply a relative error bound (avoid redundant computations).
-#' @param Q.all  test statistics
-#' @param lambda  mixing coefficients
-#' @param acc  relative error bound
-#' @param lim  maximum number of integration terms
-#' @return tail probability
-#' @export
-#' @references
-#' Wu,B., Guan,W., Pankow,J.S. (2016) On efficient and accurate calculation of significance p-values for sequence kernel association test of variant set. \emph{Annals of human genetics}, 80(2), 123-135.
-#'
-#' Wu,B., Guo,B. and Liu,N. (2017) A powerful and efficient statistical method for transcriptome-wide association test using GWAS summary data. tech rep.
+# ' Compute the tail probability of weighted sum of 1-DF chi-square rvs
+# '
+# ' Use Davies' method and apply a relative error bound (avoid redundant computations).
+# ' @param Q.all  test statistics
+# ' @param lambda  mixing coefficients
+# ' @param acc  relative error bound
+# ' @param lim  maximum number of integration terms
+# ' @return tail probability
+# ' @export
+# ' @references
+# ' Wu,B., Guan,W., Pankow,J.S. (2016) On efficient and accurate calculation of significance p-values for sequence kernel association test of variant set. \emph{Annals of human genetics}, 80(2), 123-135.
+# '
+# ' Wu,B., Guo,B. and Liu,N. (2018) A powerful and efficient statistical method for transcriptome informed association test using GWAS summary data. tech rep.
 KATpval <- function(Q.all, lambda, acc=1e-2,lim=1e7){
   ## pval = rep(0, length(Q.all))
   pval = Liu.pval(Q.all,lambda)
