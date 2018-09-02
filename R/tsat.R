@@ -20,7 +20,7 @@
 #' 
 #' Wu,B., Guan,W., Pankow,J.S. (2016) On efficient and accurate calculation of significance p-values for sequence kernel association test of variant set. Annals of human genetics, 80(2), 123-135.
 #'
-#' Wu,B., Guo,B. and Liu,N. (2018) A powerful and efficient statistical method for transcriptome-wide association test using GWAS summary data. \emph{Bioinformatics}, under revision.
+#' Wu,B., Guo,B. and Liu,N. (2018) A powerful and efficient statistical method for transcriptome informed association test using GWAS summary data. \emph{Bioinformatics}, under revision.
 #' @examples
 #' library(IWAS)
 #' ## pairwise cor = 0.2

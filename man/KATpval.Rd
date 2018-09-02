@@ -4,7 +4,7 @@
 \alias{KATpval}
 \title{Compute the tail probability of weighted sum of 1-DF chi-square rvs}
 \usage{
-KATpval(Q.all, lambda, acc = 0.001, lim = 1e+09)
+KATpval(Q.all, lambda, acc = 0.01, lim = 1e+07)
 }
 \arguments{
 \item{Q.all}{test statistics}
